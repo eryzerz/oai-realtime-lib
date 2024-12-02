@@ -1,5 +1,5 @@
 {
-  "name": "@openai/realtime-api-beta",
+  "name": "@eryzerz/oai-realtime-lib",
   "version": "0.0.2",
   "private": true,
   "type": "module",
