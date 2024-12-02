@@ -4,7 +4,7 @@ export class RealtimeAPI extends RealtimeEventHandler {
      * @param {{endpoint?: string, apiKey?: string, deploymentName?: string, dangerouslyAllowAPIKeyInBrowser?: boolean, debug?: boolean}} [settings]
      * @returns {RealtimeAPI}
      */
-    constructor({ endpoint, apiKey, deploymentName, dangerouslyAllowAPIKeyInBrowser, debug }?: {
+    constructor({ endpoint, apiKey, deploymentName, dangerouslyAllowAPIKeyInBrowser, debug, }?: {
         endpoint?: string;
         apiKey?: string;
         deploymentName?: string;
