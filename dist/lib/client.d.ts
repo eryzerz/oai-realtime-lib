@@ -167,16 +167,16 @@ export class RealtimeClient extends RealtimeEventHandler {
         apiKey?: string;
         dangerouslyAllowAPIKeyInBrowser?: boolean;
         debug?: boolean;
-    });
+    } | undefined);
     defaultSessionConfig: {
         modalities: string[];
         instructions: string;
         voice: string;
         input_audio_format: string;
         output_audio_format: string;
-        input_audio_transcription: any;
-        turn_detection: any;
-        tools: any[];
+        input_audio_transcription: null;
+        turn_detection: null;
+        tools: never[];
         tool_choice: string;
         temperature: number;
         max_response_output_tokens: number;
@@ -199,8 +199,8 @@ export class RealtimeClient extends RealtimeEventHandler {
      * @returns {true}
      */
     private _resetConfig;
-    sessionCreated: boolean;
-    tools: {};
+    sessionCreated: boolean | undefined;
+    tools: {} | undefined;
     inputAudioBuffer: any;
     /**
      * Sets up event handlers for a fully-functional application control flow
@@ -265,7 +265,7 @@ export class RealtimeClient extends RealtimeEventHandler {
      * If the client is not yet connected, will save details and instantiate upon connection
      * @param {SessionResourceType} [sessionConfig]
      */
-    updateSession({ modalities, instructions, voice, input_audio_format, output_audio_format, input_audio_transcription, turn_detection, tools, tool_choice, temperature, max_response_output_tokens, }?: SessionResourceType): boolean;
+    updateSession({ modalities, instructions, voice, input_audio_format, output_audio_format, input_audio_transcription, turn_detection, tools, tool_choice, temperature, max_response_output_tokens, }?: SessionResourceType | undefined): boolean;
     /**
      * Sends user message content and generates a response
      * @param {Array<InputTextContentType|InputAudioContentType>} content
@@ -290,7 +290,7 @@ export class RealtimeClient extends RealtimeEventHandler {
      * @param {number} [sampleCount] The number of samples to truncate past for the ongoing generation
      * @returns {{item: (AssistantItemType | null)}}
      */
-    cancelResponse(id: string, sampleCount?: number): {
+    cancelResponse(id: string, sampleCount?: number | undefined): {
         item: (AssistantItemType | null);
     };
     /**
@@ -317,15 +317,15 @@ export type AudioTranscriptionType = {
 };
 export type TurnDetectionServerVadType = {
     type: "server_vad";
-    threshold?: number;
-    prefix_padding_ms?: number;
-    silence_duration_ms?: number;
+    threshold?: number | undefined;
+    prefix_padding_ms?: number | undefined;
+    silence_duration_ms?: number | undefined;
 };
 /**
  * Tool definitions
  */
 export type ToolDefinitionType = {
-    type?: "function";
+    type?: "function" | undefined;
     name: string;
     description: string;
     parameters: {
@@ -333,22 +333,21 @@ export type ToolDefinitionType = {
     };
 };
 export type SessionResourceType = {
-    model?: string;
-    modalities?: string[];
-    instructions?: string;
-    voice?: "alloy"|"ash"|"ballad"|"coral"|"echo"|"sage"|"shimmer"|"verse";
-
-    input_audio_format?: AudioFormatType;
-    output_audio_format?: AudioFormatType;
-    input_audio_transcription?: AudioTranscriptionType | null;
-    turn_detection?: TurnDetectionServerVadType | null;
-    tools?: ToolDefinitionType[];
-    tool_choice?: "auto" | "none" | "required" | {
+    model?: string | undefined;
+    modalities?: string[] | undefined;
+    instructions?: string | undefined;
+    voice?: "alloy" | "ash" | "ballad" | "coral" | "echo" | "sage" | "shimmer" | "verse" | undefined;
+    input_audio_format?: AudioFormatType | undefined;
+    output_audio_format?: AudioFormatType | undefined;
+    input_audio_transcription?: AudioTranscriptionType | null | undefined;
+    turn_detection?: TurnDetectionServerVadType | null | undefined;
+    tools?: ToolDefinitionType[] | undefined;
+    tool_choice?: {
         type: "function";
         name: string;
-    };
-    temperature?: number;
-    max_response_output_tokens?: number | "inf";
+    } | "auto" | "none" | "required" | undefined;
+    temperature?: number | undefined;
+    max_response_output_tokens?: number | "inf" | undefined;
 };
 export type ItemStatusType = "in_progress" | "completed" | "incomplete";
 export type InputTextContentType = {
@@ -360,8 +359,8 @@ export type InputAudioContentType = {
     /**
      * base64-encoded audio data
      */
-    audio?: string;
-    transcript?: string | null;
+    audio?: string | undefined;
+    transcript?: string | null | undefined;
 };
 export type TextContentType = {
     type: "text";
@@ -372,32 +371,32 @@ export type AudioContentType = {
     /**
      * base64-encoded audio data
      */
-    audio?: string;
-    transcript?: string | null;
+    audio?: string | undefined;
+    transcript?: string | null | undefined;
 };
 export type SystemItemType = {
-    previous_item_id?: string | null;
+    previous_item_id?: string | null | undefined;
     type: "message";
     status: ItemStatusType;
     role: "system";
     content: Array<InputTextContentType>;
 };
 export type UserItemType = {
-    previous_item_id?: string | null;
+    previous_item_id?: string | null | undefined;
     type: "message";
     status: ItemStatusType;
     role: "user";
     content: Array<InputTextContentType | InputAudioContentType>;
 };
 export type AssistantItemType = {
-    previous_item_id?: string | null;
+    previous_item_id?: string | null | undefined;
     type: "message";
     status: ItemStatusType;
     role: "assistant";
     content: Array<TextContentType | AudioContentType>;
 };
 export type FunctionCallItemType = {
-    previous_item_id?: string | null;
+    previous_item_id?: string | null | undefined;
     type: "function_call";
     status: ItemStatusType;
     call_id: string;
@@ -405,7 +404,7 @@ export type FunctionCallItemType = {
     arguments: string;
 };
 export type FunctionCallOutputItemType = {
-    previous_item_id?: string | null;
+    previous_item_id?: string | null | undefined;
     type: "function_call_output";
     call_id: string;
     output: string;
@@ -417,17 +416,17 @@ export type FormattedToolType = {
     arguments: string;
 };
 export type FormattedPropertyType = {
-    audio?: Int16Array;
-    text?: string;
-    transcript?: string;
-    tool?: FormattedToolType;
-    output?: string;
+    audio?: Int16Array | undefined;
+    text?: string | undefined;
+    transcript?: string | undefined;
+    tool?: FormattedToolType | undefined;
+    output?: string | undefined;
     file?: any;
 };
 export type FormattedItemType = {
     id: string;
     object: string;
-    role?: "user" | "assistant" | "system";
+    role?: "user" | "assistant" | "system" | undefined;
     formatted: FormattedPropertyType;
 };
 export type BaseItemType = SystemItemType | UserItemType | AssistantItemType | FunctionCallItemType | FunctionCallOutputItemType;

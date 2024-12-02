@@ -17,45 +17,48 @@ export class RealtimeConversation {
     EventProcessors: {
         'conversation.item.created': (event: any) => {
             item: any;
-            delta: any;
+            delta: null;
         };
         'conversation.item.truncated': (event: any) => {
             item: any;
-            delta: any;
+            delta: null;
         };
         'conversation.item.deleted': (event: any) => {
             item: any;
-            delta: any;
+            delta: null;
         };
         'conversation.item.input_audio_transcription.completed': (event: any) => {
+            item: null;
+            delta: null;
+        } | {
             item: any;
             delta: {
                 transcript: any;
             };
         };
         'input_audio_buffer.speech_started': (event: any) => {
-            item: any;
-            delta: any;
+            item: null;
+            delta: null;
         };
         'input_audio_buffer.speech_stopped': (event: any, inputAudioBuffer: any) => {
-            item: any;
-            delta: any;
+            item: null;
+            delta: null;
         };
         'response.created': (event: any) => {
-            item: any;
-            delta: any;
+            item: null;
+            delta: null;
         };
         'response.output_item.added': (event: any) => {
-            item: any;
-            delta: any;
+            item: null;
+            delta: null;
         };
         'response.output_item.done': (event: any) => {
             item: any;
-            delta: any;
+            delta: null;
         };
         'response.content_part.added': (event: any) => {
             item: any;
-            delta: any;
+            delta: null;
         };
         'response.audio_transcript.delta': (event: any) => {
             item: any;
@@ -82,18 +85,18 @@ export class RealtimeConversation {
             };
         };
     };
-    queuedInputAudio: Int16Array;
+    queuedInputAudio: Int16Array | null | undefined;
     /**
      * Clears the conversation history and resets to default
      * @returns {true}
      */
     clear(): true;
-    itemLookup: {};
-    items: any[];
-    responseLookup: {};
-    responses: any[];
-    queuedSpeechItems: {};
-    queuedTranscriptItems: {};
+    itemLookup: {} | undefined;
+    items: any[] | undefined;
+    responseLookup: {} | undefined;
+    responses: any[] | undefined;
+    queuedSpeechItems: {} | undefined;
+    queuedTranscriptItems: {} | undefined;
     /**
      * Queue input audio for manual speech event
      * @param {Int16Array} inputAudio
@@ -106,7 +109,7 @@ export class RealtimeConversation {
      * @param  {...any} args
      * @returns {item: import('./client.js').ItemType | null, delta: ItemContentDeltaType | null}
      */
-    processEvent(event: any, ...args: any[]): item;
+    processEvent(event: Object, ...args: any[]): item;
     /**
      * Retrieves a item by id
      * @param {string} id
@@ -124,9 +127,9 @@ export class RealtimeConversation {
  * Can also be used as a delta
  */
 export type ItemContentDeltaType = {
-    text?: string;
-    audio?: Int16Array;
-    arguments?: string;
-    transcript?: string;
+    text?: string | undefined;
+    audio?: Int16Array | undefined;
+    arguments?: string | undefined;
+    transcript?: string | undefined;
 };
 //# sourceMappingURL=conversation.d.ts.map
