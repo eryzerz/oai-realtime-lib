@@ -34,6 +34,6 @@ export class RealtimeUtils {
      * @param {number} [length]
      * @returns {string}
      */
-    static generateId(prefix: string, length?: number): string;
+    static generateId(prefix: string, length?: number | undefined): string;
 }
 //# sourceMappingURL=utils.d.ts.map

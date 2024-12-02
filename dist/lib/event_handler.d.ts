@@ -32,7 +32,7 @@ export class RealtimeEventHandler {
      * @param {EventHandlerCallbackType} [callback]
      * @returns {true}
      */
-    off(eventName: string, callback?: EventHandlerCallbackType): true;
+    off(eventName: string, callback?: any): true;
     /**
      * Turns off event listening for the next event of a specific type
      * Calling without a callback will remove all listeners for the next event
@@ -40,14 +40,14 @@ export class RealtimeEventHandler {
      * @param {EventHandlerCallbackType} [callback]
      * @returns {true}
      */
-    offNext(eventName: string, callback?: EventHandlerCallbackType): true;
+    offNext(eventName: string, callback?: any): true;
     /**
      * Waits for next event of a specific type and returns the payload
      * @param {string} eventName
      * @param {number|null} [timeout]
      * @returns {Promise<{[key: string]: any}|null>}
      */
-    waitForNext(eventName: string, timeout?: number | null): Promise<{
+    waitForNext(eventName: string, timeout?: number | null | undefined): Promise<{
         [key: string]: any;
     } | null>;
     /**

@@ -1,11 +1,18 @@
 {
-  "include": ["index.js"],
+  "include": ["index.js", "lib/**/*.js"],
   "compilerOptions": {
     "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "dist",
     "declarationMap": true,
-    "lib": ["ES2022"]
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "target": "ES2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   }
 }
