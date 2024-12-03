@@ -162,7 +162,7 @@ export class RealtimeClient extends RealtimeEventHandler {
      * Create a new RealtimeClient instance
      * @param {{endpoint?: string, apiKey?: string, deploymentName?: string, dangerouslyAllowAPIKeyInBrowser?: boolean, debug?: boolean}} [settings]
      */
-    constructor({ endpoint, apiKey, deploymentName, dangerouslyAllowAPIKeyInBrowser, debug, }?: {
+    constructor({ url, apiKey, dangerouslyAllowAPIKeyInBrowser, debug }?: {
         endpoint?: string;
         apiKey?: string;
         deploymentName?: string;
