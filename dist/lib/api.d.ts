@@ -1,20 +1,18 @@
 export class RealtimeAPI extends RealtimeEventHandler {
     /**
      * Create a new RealtimeAPI instance
-     * @param {{endpoint?: string, apiKey?: string, deploymentName?: string, dangerouslyAllowAPIKeyInBrowser?: boolean, debug?: boolean}} [settings]
+     * @param {{url?: string, apiKey?: string, dangerouslyAllowAPIKeyInBrowser?: boolean, debug?: boolean}} [settings]
      * @returns {RealtimeAPI}
      */
-    constructor({ endpoint, apiKey, deploymentName, dangerouslyAllowAPIKeyInBrowser, debug, }?: {
-        endpoint?: string;
+    constructor({ url, apiKey, dangerouslyAllowAPIKeyInBrowser, debug }?: {
+        url?: string;
         apiKey?: string;
-        deploymentName?: string;
         dangerouslyAllowAPIKeyInBrowser?: boolean;
         debug?: boolean;
     } | undefined);
-    defaultEndpoint: string;
-    endpoint: string;
-    apiKey: string | undefined;
-    deploymentName: string;
+    defaultUrl: string;
+    url: string;
+    apiKey: string | null;
     debug: boolean;
     ws: any;
     /**
@@ -29,10 +27,13 @@ export class RealtimeAPI extends RealtimeEventHandler {
      */
     log(...args: any[]): true;
     /**
-     * Connects to Azure OpenAI Realtime API Websocket Server
+     * Connects to Realtime API Websocket Server
+     * @param {{model?: string}} [settings]
      * @returns {Promise<true>}
      */
-    connect(): Promise<true>;
+    connect({ model }?: {
+        model?: string;
+    } | undefined): Promise<true>;
     /**
      * Disconnects from Realtime API server
      * @param {WebSocket} [ws]
