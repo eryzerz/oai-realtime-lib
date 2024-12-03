@@ -11,6 +11,7 @@ export class RealtimeAPI extends RealtimeEventHandler {
         dangerouslyAllowAPIKeyInBrowser?: boolean;
         debug?: boolean;
     } | undefined);
+    defaultEndpoint: string;
     endpoint: string;
     apiKey: string | undefined;
     deploymentName: string;
